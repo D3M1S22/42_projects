@@ -6,7 +6,7 @@
 /*   By: dshushku <dshushku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 13:37:34 by dshushku          #+#    #+#             */
-/*   Updated: 2023/04/13 17:23:43 by dshushku         ###   ########.fr       */
+/*   Updated: 2023/04/13 18:36:11 by dshushku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ char	*ft_read_line(char *s, int fd)
 char	*get_next_line(int fd)
 {
 	char		*next_line;
-	static char	str[10240];
+	static char	*str[10240];
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	str[fd] = *ft_read_line(str, fd);
-	if (str[fd])
+	str[fd] = ft_read_line(str[fd], fd);
+	if (!str[fd])
 		return ((void *)0);
-	next_line = ft_get_line(str);
-	str[fd] = *ft_shift_line(str);
+	next_line = ft_get_line(str[fd]);
+	str[fd] = ft_shift_line(str[fd]);
 	return (next_line);
 }
