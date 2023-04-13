@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dshushku <dshushku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/20 13:37:44 by dshushku          #+#    #+#             */
-/*   Updated: 2023/03/20 13:40:03 by dshushku         ###   ########.fr       */
+/*   Created: 2023/03/20 13:36:46 by dshushku          #+#    #+#             */
+/*   Updated: 2023/03/20 13:43:37 by dshushku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(char *s)
 {
