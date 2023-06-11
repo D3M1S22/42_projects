@@ -1,27 +1,46 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dshushku <dshushku@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/26 02:59:34 by dshushku          #+#    #+#             */
+/*   Updated: 2023/01/26 02:59:34 by dshushku         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/pipex.h"
 
+int ft_strlen(const char *s)
+{
+	int i;
+
+	i = -1;
+	while (s[++i] != 0)
+		continue;
+	return (i);
+}
 char *ft_strjoin(char const *s1, char const *s2)
 {
-  char *j_str;
-  size_t i;
-  size_t j;
+	char *r;
+	int l1;
+	int l2;
+	int i;
 
-  j_str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-  if (!j_str)
-    return (NULL);
-  i = 0;
-  while (s1[i] != '\0')
-  {
-    j_str[i] = s1[i];
-    i++;
-  }
-  j = 0;
-  while (s2[j] != '\0')
-  {
-    j_str[i] = s2[j];
-    i++;
-    j++;
-  }
-  j_str[i] = '\0';
-  return (j_str);
+	if (!s1 || !s2)
+		return ((void *)0);
+	l1 = ft_strlen(s1);
+	l2 = ft_strlen(s2);
+	r = malloc(sizeof(char) * (l1 + l2 + 1));
+	if (r == (void *)0)
+		return ((void *)0);
+	i = -1;
+	while (s1[++i])
+		r[i] = s1[i];
+	i = -1;
+	while (s2[++i])
+		r[l1++] = s2[i];
+	r[l1] = 0;
+	return (r);
 }

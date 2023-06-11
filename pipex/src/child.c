@@ -8,9 +8,9 @@ void read_pipes(int pipe, int file)
   {
     bytes_read = read(pipe, buffer, sizeof(buffer));
     if (bytes_read == -1)
-      msg_error("error reading");
+      msg_error("error reading", 0);
     if (write(file, buffer, bytes_read) != bytes_read)
-      msg_error("error writing");
+      msg_error("error writing", 0);
   }
 }
 

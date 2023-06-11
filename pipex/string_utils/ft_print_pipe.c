@@ -9,7 +9,7 @@ void ft_print_pipe(int pipe, int log_file)
   i = 0;
   buffer = malloc(sizeof(char *) * 10000000);
   if (!buffer)
-    msg_error("Errore buffer\n");
+    msg_error("Errore buffer\n", 0);
   byte_r = read(pipe, &buffer[i++], 255);
   while (byte_r > 0)
     byte_r = read(pipe, &buffer[i++], 255);

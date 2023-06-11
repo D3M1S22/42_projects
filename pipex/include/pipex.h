@@ -51,10 +51,10 @@ typedef struct s_pipex
 void pipex(t_pipex *pipex, const char **argv, char **envp);
 
 // STRING UTILS
-char **ft_split(char const *s, char c);
+char	**ft_split(char const *s, char c);
 int ft_strncmp(const char *s1, const char *s2, size_t n);
 char *ft_strdup(const char *src);
-size_t ft_strlen(const char *s);
+int ft_strlen(const char *s);
 char *ft_strjoin(char const *s1, char const *s2);
 int ft_putnbr(int nb, int log);
 int ft_putchr(int c, int log);
@@ -64,7 +64,7 @@ char *ft_int_to_str(int num);
 //-------------
 
 // FREE UTILS
-void free_cmds(t_cmd **cmds);
+void free_cmds(t_cmd **cmds,int ncmd);
 void free_pipex(t_pipex *pipex);
 void close_pipes(t_pipex *pipex);
 //-----------
@@ -79,7 +79,7 @@ int *create_log_files(int n_cmds);
 
 // ERROR
 int msg(char *err);
-void msg_error(char *err);
+void msg_error(char *err, int to_free);
 void dup_handle(int tube, int pos);
 void handle_waitpid(pid_t pid);
 //-----

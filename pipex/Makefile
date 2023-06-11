@@ -28,7 +28,7 @@ LOG_F		= debug/log_*
 				@${CC} ${FLAGS} -c $< -o $@
 
 $(NAME):		$(OBJ_F) $(OBJ_M)
-				@$(CC) $(OBJ_F) $(OBJ_M) -o $(NAME)
+				@$(CC) $(OBJ_F) $(OBJ_M) -fsanitize=address -o $(NAME)
 				@echo -e "$(GREEN)$(NAME) created!$(DEFAULT)"
 
 all:			$(NAME)

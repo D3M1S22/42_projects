@@ -33,7 +33,7 @@ char *ft_int_to_str(int num)
   size = count_digits(num);
   str = (char *)malloc((size + 1) * sizeof(char));
   if (!str)
-    msg_error("Memory allocation failed\n");
+    msg_error("Memory allocation failed\n", 0);
   index = size - 1;
   str[size--] = '\0';
   if (num < 0)

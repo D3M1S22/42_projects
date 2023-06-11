@@ -3,40 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcaffere <bcaffere@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: dshushku <dshushku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/24 22:06:30 by bcaffere          #+#    #+#             */
-/*   Updated: 2021/10/08 19:24:56 by bcaffere         ###   ########.fr       */
+/*   Created: 2023/01/26 02:59:24 by dshushku          #+#    #+#             */
+/*   Updated: 2023/01/26 02:59:25 by dshushku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-size_t ft_strlen(const char *s)
+char *ft_strdup(const char *s1)
 {
-	size_t i;
+	unsigned int i;
+	char *ret;
 
 	i = 0;
-	if (s)
-		while (s[i])
-			i++;
-	return (i);
-}
-
-char *ft_strdup(const char *src)
-{
-	char *cp;
-	size_t i;
-
-	i = 0;
-	cp = (char *)malloc(ft_strlen(src) + 1);
-	if (!cp)
-		return (NULL);
-	while (src[i])
-	{
-		cp[i] = src[i];
+	while (s1[i])
 		i++;
-	}
-	cp[i] = '\0';
-	return (cp);
+	ret = malloc(sizeof(char) * (i + 1));
+	if (!ret)
+		return ((void *)0);
+	ret[i++] = '\0';
+	i--;
+	while (i--)
+		ret[i] = s1[i];
+	return (ret);
 }

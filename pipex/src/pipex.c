@@ -9,8 +9,8 @@ t_cmd **check_cmds(t_cmd **cmds, int ncmds)
   {
     if (!cmds[i]->cmd)
     {
-      free_cmds(cmds);
-      msg_error(ERR_CMD);
+      free_cmds(cmds, ncmds);
+      msg_error(ERR_CMD, 0);
     }
   }
   return (cmds);
@@ -22,8 +22,15 @@ t_cmd **malloc_cmds(size_t size)
 
   tmp = (t_cmd **)malloc(size);
   if (!tmp)
-    msg_error("Errore allocando memoria\n");
+    msg_error("Errore allocando memoria\n", 0);
   return (tmp);
+}
+void free_parse(char *tmp, char * command)
+{
+  if(tmp)
+    free(tmp);
+  if(command)
+    free(command);
 }
 
 t_cmd **ft_parse_cmd(char **args, int ncmds, char **paths)
@@ -46,11 +53,11 @@ t_cmd **ft_parse_cmd(char **args, int ncmds, char **paths)
       tmp = ft_strjoin(paths[j], "/");
       command = ft_strjoin(tmp, cmds[i]->f_cmd[0]);
       cmds[i]->cmd = ft_strdup(command);
+      free_parse(tmp, command);
       if (access(cmds[i]->cmd, 0) == 0)
         break;
-      free(tmp);
-      free(command);
-    }
+      free(cmds[i]->cmd);
+    } 
   }
   return (check_cmds(cmds, ncmds));
 }
@@ -79,7 +86,7 @@ void pipex(t_pipex *pipex, const char **argv, char **envp)
   {
     pipex->pids[i] = fork();
     if (pipex->pids[i] == -1)
-      msg_error("pid error");
+      msg_error("pid error", 0);
     else if (!pipex->pids[i])
       child_work(pipex, envp, i);
   }

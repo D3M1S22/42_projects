@@ -3,102 +3,97 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcaffere <bcaffere@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: dshushku <dshushku@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/01 19:37:15 by bcaffere          #+#    #+#             */
-/*   Updated: 2021/10/08 19:18:15 by bcaffere         ###   ########.fr       */
+/*   Created: 2023/01/26 02:59:14 by dshushku          #+#    #+#             */
+/*   Updated: 2023/01/29 12:36:29 by dshushku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-static size_t words_count(char *s, char c)
+static int	strlen_neg_pos(const char *s)
 {
-	size_t i;
-	size_t j;
+	int	i;
 
 	i = 0;
-	j = 0;
-	while (*s)
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
+
+static int	count_nbr_words(const char *str, char c)
+{
+	int	i;
+	int	trigger;
+
+	i = 0;
+	trigger = 0;
+	while (*str)
 	{
-		if (*s != c)
-			i++;
-		else if (*s == c && i != 0)
+		if (*str != c && trigger == 0)
 		{
-			j++;
-			i = 0;
+			trigger = 1;
+			i++;
 		}
-		s++;
+		else if (*str == c)
+			trigger = 0;
+		str++;
 	}
-	if (i != 0)
-		j++;
-	return (j);
+	return (i);
 }
 
-static char *word(char *s, char c)
+static char	*copy_words(const char *str, int start, int end)
 {
-	char *buf;
-
-	while (*s == c)
-		s++;
-	buf = s;
-	while (*buf && *buf != c)
-		buf++;
-	*buf = '\0';
-	return (ft_strdup(s));
-}
-
-static char **free_arr(char **arr, char *s)
-{
-	size_t i;
+	char	*word;
+	int		i;
 
 	i = 0;
-	while (arr[i])
+	word = malloc((end - start + 1) * sizeof(char));
+	if (!word)
+		return (0);
+	while (start < end)
 	{
-		free(arr[i]);
+		word[i] = str[start];
+		i++;
+		start++;
+	}
+	word[i] = '\0';
+	return (word);
+}
+
+char	**prova(int start, int j, char const *s, char c)
+{
+	char	**split;
+	int		i;
+
+	if (!s)
+		return (0);
+	split = malloc((count_nbr_words(s, c) + 1) * sizeof(char *));
+	if (!split)
+		return (0);
+	i = 0;
+	while (i <= strlen_neg_pos(s))
+	{
+		if (s[i] != c && start < 0)
+			start = i;
+		else if ((s[i] == c || i == strlen_neg_pos(s)) && start >= 0)
+		{
+			split[j++] = copy_words(s, start, i);
+			start = -1;
+		}
 		i++;
 	}
-	free(arr);
-	free(s);
-	return (NULL);
+	split[j] = 0;
+	return (split);
 }
 
-static char **worker(char **arr, char *s1, char c, size_t j)
+char	**ft_split(char const *s, char c)
 {
-	size_t i;
-	char *str;
+	int	start;
+	int	j;
 
-	str = s1;
-	i = 0;
-	while (i < j)
-	{
-		if (*s1 != c)
-		{
-			arr[i] = word(s1, c);
-			if (!arr[i])
-				return (free_arr(arr, s1));
-			s1 = s1 + ft_strlen(arr[i]);
-			i++;
-		}
-		s1++;
-	}
-	arr[i] = NULL;
-	free(str);
-	return (arr);
-}
-
-char **ft_split(char const *s, char c)
-{
-	char **w_arr;
-	char *s1;
-	size_t j;
-
-	s1 = ft_strdup(s);
-	if (!s1)
-		return (NULL);
-	j = words_count(s1, c);
-	w_arr = (char **)malloc(sizeof(char *) * (j + 1));
-	if (!w_arr)
-		return (NULL);
-	return (worker(w_arr, s1, c, j));
+	start = -1;
+	j = 0;
+	return (prova(start, j, s, c));
 }
