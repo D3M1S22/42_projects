@@ -9,6 +9,16 @@ void close_log_files(t_pipex *pipex)
     close(pipex->log_files[i]);
 }
 
+void free_f_cmd(char **f_cmd)
+{
+  int i;
+
+  i = -1;
+  while(f_cmd[++i])
+    free(f_cmd[i]);
+  free(f_cmd);
+}
+
 void free_cmds(t_cmd **cmds,int ncmd)
 {
   int i;
@@ -16,8 +26,9 @@ void free_cmds(t_cmd **cmds,int ncmd)
   i = -1;
   while (++i < ncmd)
   {
-    free(cmds[i]->f_cmd);
+    free_f_cmd(cmds[i]->f_cmd);
     free(cmds[i]->cmd);
+    free(cmds[i]);
   }
   free(cmds);
 }
@@ -27,7 +38,7 @@ void free_pipex(t_pipex *pipex)
   // int i;
 
   // i = -1;
-  free(pipex->cmd_paths);
+  free_f_cmd(pipex->cmd_paths);
   // // free(pipex->cmds);
   // while (pipex->cmds[++i])
   // {

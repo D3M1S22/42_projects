@@ -16,7 +16,7 @@ MPATH		=	$(addprefix $(MPATH_DIR), $(MPATH_SRCS))
 OBJ_M		=	$(MPATH:.c=.o)
 
 
-FUNC_SRCS	=	ft_strncmp.c ft_strdup.c ft_split.c ft_strjoin.c ft_putnbr.c ft_putstr.c ft_print_pipe.c ft_int_to_str.c
+FUNC_SRCS	=	ft_strncmp.c ft_strdup.c ft_split.c ft_strjoin.c ft_putnbr.c ft_putstr.c ft_print_pipe.c ft_itoa.c
 FUNC_DIR	=	string_utils/
 FUNC 		=	$(addprefix $(FUNC_DIR), $(FUNC_SRCS))\
 					main.c
@@ -28,7 +28,7 @@ LOG_F		= debug/log_*
 				@${CC} ${FLAGS} -c $< -o $@
 
 $(NAME):		$(OBJ_F) $(OBJ_M)
-				@$(CC) $(OBJ_F) $(OBJ_M) -fsanitize=address -o $(NAME)
+				@$(CC) $(OBJ_F) $(OBJ_M) -o $(NAME)
 				@echo -e "$(GREEN)$(NAME) created!$(DEFAULT)"
 
 all:			$(NAME)

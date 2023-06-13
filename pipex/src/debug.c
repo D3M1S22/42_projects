@@ -12,7 +12,7 @@ int *create_log_files(int n_cmds)
   fds = (int *)malloc(sizeof(int) * n_cmds);
   while (++i < n_cmds)
   {
-    int_to_s = ft_int_to_str(i);
+    int_to_s = ft_itoa(i);
     file_name = ft_strjoin("./debug/log_file_", int_to_s);
     if (!file_name)
       msg_error("error creating file_name", 1);

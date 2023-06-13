@@ -60,7 +60,7 @@ int ft_putnbr(int nb, int log);
 int ft_putchr(int c, int log);
 int ft_putstr(char *str, int log);
 void ft_print_pipe(int pipe, int log_file);
-char *ft_int_to_str(int num);
+char	*ft_itoa(int n);
 //-------------
 
 // FREE UTILS
