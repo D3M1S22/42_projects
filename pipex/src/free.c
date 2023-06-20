@@ -46,6 +46,7 @@ void free_pipex(t_pipex *pipex)
   close_log_files(pipex);
   free(pipex->log_files);
   free(pipex);
+  exit(0);
 }
 void close_pipes(t_pipex *pipex)
 {

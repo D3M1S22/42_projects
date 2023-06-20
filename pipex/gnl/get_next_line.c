@@ -24,7 +24,6 @@ int	get_next_line(int fd, char **line)
 	char		*buf;
 	int			rd;
 	static char	*rem;
-	char *tmp;
 
 	if (fd < 0 || BUFFER_SIZE < 1 || !line)
 		return (-1);
@@ -38,7 +37,6 @@ int	get_next_line(int fd, char **line)
 		if (rd < 0)
 			return (some_error(buf));
 		buf[rd] = '\0';
-		tmp = 
 		rem = str_join(rem, buf);
 	}
 	free(buf);
