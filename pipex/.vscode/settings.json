@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "get_next_line.h": "c",
+        "pipex.h": "c",
+        "unistd.h": "c"
+    }
+}

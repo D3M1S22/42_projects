@@ -74,7 +74,7 @@ void pipex(t_pipex *pipex, const char **argv, char **envp)
   int i;
 
   pipex->cmd_paths = ft_parse_paths(envp);
-  pipex->cmds = ft_parse_cmd(((char **)argv) + 2, pipex->n_cmds, pipex->cmd_paths);
+  pipex->cmds = ft_parse_cmd(((char **)argv) + 2 + pipex->here_doc, pipex->n_cmds, pipex->cmd_paths);
   pipex->tube = (int *)malloc(sizeof(int) * (pipex->n_pipes));
   i = -1;
   while (++i < pipex->n_cmds - 1)

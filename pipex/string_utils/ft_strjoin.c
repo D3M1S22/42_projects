@@ -12,7 +12,7 @@
 
 #include "../include/pipex.h"
 
-int ft_strlen(const char *s)
+size_t ft_strlen(const char *s)
 {
 	int i;
 
@@ -24,8 +24,8 @@ int ft_strlen(const char *s)
 char *ft_strjoin(char const *s1, char const *s2)
 {
 	char *r;
-	int l1;
-	int l2;
+	size_t l1;
+	size_t l2;
 	int i;
 
 	if (!s1 || !s2)

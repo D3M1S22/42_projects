@@ -20,6 +20,7 @@
 #include <sys/wait.h>
 #include <errno.h>
 #include <string.h>
+# include "../gnl/get_next_line.h"
 
 #define ERR_INFILE "Infile"
 #define ERR_OUTFILE "Outfile"
@@ -46,21 +47,28 @@ typedef struct s_pipex
   int *log_files;
   int n_cmds;
   int n_pipes;
+  int here_doc;
 } t_pipex;
 
 void pipex(t_pipex *pipex, const char **argv, char **envp);
+
+// SETUP
+int handle_files(const char *infile, t_pipex* pipex, const char *delimiter, const char *outfile);
+void	here_doc(const char *argv, t_pipex *pipex);
+//------
 
 // STRING UTILS
 char	**ft_split(char const *s, char c);
 int ft_strncmp(const char *s1, const char *s2, size_t n);
 char *ft_strdup(const char *src);
-int ft_strlen(const char *s);
+size_t ft_strlen(const char *s);
 char *ft_strjoin(char const *s1, char const *s2);
 int ft_putnbr(int nb, int log);
 int ft_putchr(int c, int log);
 int ft_putstr(char *str, int log);
 void ft_print_pipe(int pipe, int log_file);
 char	*ft_itoa(int n);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
 //-------------
 
 // FREE UTILS

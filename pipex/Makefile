@@ -10,16 +10,16 @@ HEADER_SRCS	=	pipex.h pipex_bonus.h
 HEADER_DIR	=	include/
 HEADER		=	$(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
-MPATH_SRCS	=	pipex.c child.c error.c free.c debug.c
+MPATH_SRCS	=	pipex.c child.c error.c free.c debug.c here_doc.c
 MPATH_DIR	=	src/
 MPATH		=	$(addprefix $(MPATH_DIR), $(MPATH_SRCS))
 OBJ_M		=	$(MPATH:.c=.o)
 
 
-FUNC_SRCS	=	ft_strncmp.c ft_strdup.c ft_split.c ft_strjoin.c ft_putnbr.c ft_putstr.c ft_print_pipe.c ft_itoa.c
+FUNC_SRCS	=	ft_strncmp.c ft_strdup.c ft_split.c ft_strjoin.c ft_putnbr.c ft_putstr.c ft_print_pipe.c ft_itoa.c ft_memcpy.c
 FUNC_DIR	=	string_utils/
 FUNC 		=	$(addprefix $(FUNC_DIR), $(FUNC_SRCS))\
-					main.c
+					main.c gnl/get_next_line_utils.c gnl/get_next_line.c
 OBJ_F		=	$(FUNC:.c=.o)
 LOG_F		= debug/log_*
 
