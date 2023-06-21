@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dshushku <dshushku@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dshushku <dshushku@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 02:59:24 by dshushku          #+#    #+#             */
-/*   Updated: 2023/01/26 02:59:25 by dshushku         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:12:45 by dshushku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-char *ft_strdup(const char *s1)
+char	*ft_strdup(const char *s1)
 {
-	unsigned int i;
-	char *ret;
+	unsigned int	i;
+	char			*ret;
 
 	i = 0;
 	while (s1[i])

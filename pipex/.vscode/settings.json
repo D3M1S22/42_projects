@@ -1,7 +1,9 @@
 {
     "files.associations": {
+        "*.css": "tailwindcss",
         "get_next_line.h": "c",
         "pipex.h": "c",
-        "unistd.h": "c"
+        "unistd.h": "c",
+        "string.h": "c"
     }
 }

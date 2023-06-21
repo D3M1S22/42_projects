@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcaffere <bcaffere@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: dshushku <dshushku@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 19:41:42 by bcaffere          #+#    #+#             */
-/*   Updated: 2021/10/08 17:46:35 by bcaffere         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:13:05 by dshushku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-int ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	while ((*s1 || *s2) && (n > 0))
 	{

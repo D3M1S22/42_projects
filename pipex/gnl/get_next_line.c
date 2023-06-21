@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcaffere <bcaffere@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: dshushku <dshushku@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/06 16:23:03 by bcaffere          #+#    #+#             */
-/*   Updated: 2021/10/06 16:23:05 by bcaffere         ###   ########.fr       */
+/*   Created: 2023/06/21 15:19:51 by dshushku          #+#    #+#             */
+/*   Updated: 2023/06/21 15:19:51 by dshushku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

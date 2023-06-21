@@ -3,30 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dshushku <dshushku@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dshushku <dshushku@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 02:59:34 by dshushku          #+#    #+#             */
-/*   Updated: 2023/01/26 02:59:34 by dshushku         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:12:57 by dshushku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-size_t ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (s[++i] != 0)
-		continue;
+		continue ;
 	return (i);
 }
-char *ft_strjoin(char const *s1, char const *s2)
+
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char *r;
-	size_t l1;
-	size_t l2;
-	int i;
+	char	*r;
+	size_t	l1;
+	size_t	l2;
+	int		i;
 
 	if (!s1 || !s2)
 		return ((void *)0);
