@@ -6,7 +6,7 @@
 /*   By: dshushku < dshushku@student.42roma.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:00:42 by dshushku          #+#    #+#             */
-/*   Updated: 2023/11/09 17:00:43 by dshushku         ###   ########.fr       */
+/*   Updated: 2023/11/09 17:06:27 by dshushku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	main(int argc, char *argv[])
 	config = (t_config *)malloc(sizeof(t_config));
 	if (!config)
 		return (_close((void *)0, (void *)0, "config error\n"));
-	if (parse_args(config, argc, argv))
+	if (args_parser(config, argc, argv))
 		return (_close(config, (void *)0, "args error\n"));
 	philos = (t_philo *)malloc(config->n_philo * sizeof(t_philo));
 	if (!philos)

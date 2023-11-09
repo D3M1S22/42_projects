@@ -6,7 +6,7 @@
 /*   By: dshushku < dshushku@student.42roma.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:00:57 by dshushku          #+#    #+#             */
-/*   Updated: 2023/11/09 17:03:05 by dshushku         ###   ########.fr       */
+/*   Updated: 2023/11/09 17:06:27 by dshushku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ typedef struct s_philo
 {
 	int			id;
 	pid_t		proc;
-	int			meals_counter;
+	int			n_meals;
 	int			full;
 	long long	last_meal;
 	t_config	*config;
 	sem_t		*forks;
 }	t_philo;
 
-int			parse_args(t_config *config, int argc, char *argv[]);
+int			args_parser(t_config *config, int argc, char *argv[]);
 int			message(int id, char *act, t_config *config, int d);
 int			ft_atoi(char *str);
 long long	now_ts(void);

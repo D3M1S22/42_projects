@@ -6,7 +6,7 @@
 /*   By: dshushku < dshushku@student.42roma.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:01:05 by dshushku          #+#    #+#             */
-/*   Updated: 2023/11/09 17:01:05 by dshushku         ###   ########.fr       */
+/*   Updated: 2023/11/09 17:06:27 by dshushku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	wait_start(long long st)
 		continue ;
 }
 
-int	parse_args(t_config *config, int argc, char *argv[])
+int	args_parser(t_config *config, int argc, char *argv[])
 {
 	int	i;
 	int	c;

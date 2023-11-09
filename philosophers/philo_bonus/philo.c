@@ -6,7 +6,7 @@
 /*   By: dshushku < dshushku@student.42roma.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:00:52 by dshushku          #+#    #+#             */
-/*   Updated: 2023/11/09 17:02:43 by dshushku         ###   ########.fr       */
+/*   Updated: 2023/11/09 17:06:02 by dshushku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void init_philoers(t_config *config, t_philo *philos, sem_t *forks)
 	{
 		philos[i].forks = forks;
 		philos[i].id = i + 1;
-		philos[i].meals_counter = 0;
+		philos[i].n_meals = 0;
 		philos[i].full = 0;
 		philos[i].config = config;
 	}
