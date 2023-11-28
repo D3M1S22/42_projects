@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dshushku < dshushku@student.42roma.it>     +#+  +:+       +#+        */
+/*   By: dshushku <dshushku@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 17:00:52 by dshushku          #+#    #+#             */
-/*   Updated: 2023/11/09 17:06:02 by dshushku         ###   ########.fr       */
+/*   Created: 2023/11/28 13:38:23 by dshushku          #+#    #+#             */
+/*   Updated: 2023/11/28 14:16:07 by dshushku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int control_philo(t_philo *philo, t_config *config)
+int	control_philo(t_philo *philo, t_config *config)
 {
 	if (config->stop)
 		return (config->stop);
@@ -28,26 +28,26 @@ int control_philo(t_philo *philo, t_config *config)
 	return (config->stop);
 }
 
-void *controller(void *args)
+void	*controller(void *args)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)args;
 	if (philo->config->n_philo == 1)
 		return (0);
-	wait_start(philo->config->start_time);
+	await_start(philo->config->start_time);
 	while (!philo->config->stop)
 	{
 		if (control_philo(philo, philo->config))
-			break;
+			break ;
 		if (philo->full)
-			break;
+			break ;
 		usleep(1000);
 	}
 	return (0);
 }
 
-void lone_philo(t_philo *philo)
+void	lone_philo(t_philo *philo)
 {
 	message(philo->id, THINKING, philo->config, philo->config->stop);
 	alone_philo_run(philo);
@@ -55,19 +55,19 @@ void lone_philo(t_philo *philo)
 	exit(0);
 }
 
-void work(void *args)
+void	work(void *args)
 {
-	pthread_t d;
-	t_philo *philo;
-	unsigned long st;
+	unsigned long	st;
+	pthread_t		d;
+	t_philo			*philo;
 
 	philo = (t_philo *)args;
 	st = philo->config->start_time;
 	philo->last_meal = st;
 	pthread_create(&d, (void *)0, &controller, philo);
-	wait_start(st);
+	await_start(st);
 	if (!(philo->id % 2))
-		ft_sleep(200);
+		ft_c_sleep(200);
 	if (philo->config->n_philo == 1)
 		lone_philo(philo);
 	while (!philo->config->stop)
@@ -75,15 +75,15 @@ void work(void *args)
 		message(philo->id, THINKING, philo->config, philo->config->stop);
 		philo_run(philo);
 		if (philo->full)
-			break;
+			break ;
 	}
 	pthread_join(d, (void *)0);
 	exit(0);
 }
 
-void init_philoers(t_config *config, t_philo *philos, sem_t *forks)
+void	config_philos(t_config *config, t_philo *philos, sem_t *forks)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < config->n_philo)

@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dshushku < dshushku@student.42roma.it>     +#+  +:+       +#+        */
+/*   By: dshushku <dshushku@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 17:00:30 by dshushku          #+#    #+#             */
-/*   Updated: 2023/11/09 17:06:27 by dshushku         ###   ########.fr       */
+/*   Created: 2023/11/28 13:36:59 by dshushku          #+#    #+#             */
+/*   Updated: 2023/11/28 14:16:07 by dshushku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int ft_atoi(char *str)
+int	ft_atoi(char *str)
 {
-	int sign;
-	int r;
-	int i;
+	int	sign;
+	int	r;
+	int	i;
 
 	r = 0;
 	i = 0;
@@ -37,26 +37,26 @@ int ft_atoi(char *str)
 	return (r * sign);
 }
 
-long long now_ts(void)
+long long	now_ts(void)
 {
-	struct timeval current_time;
-	long long t;
+	struct timeval	current_time;
+	long long		t;
 
 	gettimeofday(&current_time, (void *)0);
 	t = (current_time.tv_sec) * 1000 + (current_time.tv_usec) / 1000;
 	return (t);
 }
 
-void wait_start(long long st)
+void	await_start(long long st)
 {
 	while (now_ts() < st)
-		continue;
+		continue ;
 }
 
-int args_parser(t_config *config, int argc, char *argv[])
+int	args_parser(t_config *config, int argc, char *argv[])
 {
-	int i;
-	int c;
+	int	i;
+	int	c;
 
 	i = 0;
 	while (++i < argc)
@@ -78,9 +78,9 @@ int args_parser(t_config *config, int argc, char *argv[])
 	return (0);
 }
 
-void ft_sleep(int ms)
+void	ft_c_sleep(int ms)
 {
-	long long f;
+	long long	f;
 
 	f = now_ts() + ms;
 	while (now_ts() < f)

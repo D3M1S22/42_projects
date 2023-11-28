@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dshushku < dshushku@student.42roma.it>     +#+  +:+       +#+        */
+/*   By: dshushku <dshushku@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 17:00:42 by dshushku          #+#    #+#             */
-/*   Updated: 2023/11/09 17:06:27 by dshushku         ###   ########.fr       */
+/*   Created: 2023/11/28 13:38:19 by dshushku          #+#    #+#             */
+/*   Updated: 2023/11/28 14:17:00 by dshushku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int	_close(t_config *c, t_philo *p, char *msg)
 	if (p && p[0].forks)
 		sem_close(p[0].forks);
 	sem_close(c->check);
-	sem_unlink(SEM_FORKS);
-	sem_unlink(SEM_PRINT);
-	sem_unlink(SEM_CHECK);
+	sem_unlink(S_FORKS);
+	sem_unlink(S_PRINT);
+	sem_unlink(S_CHECK);
 	if (p)
 		free(p);
 	if (c)
@@ -90,9 +90,9 @@ int	main(int argc, char *argv[])
 	t_philo		*philos;
 	sem_t		*forks;
 
-	sem_unlink(SEM_FORKS);
-	sem_unlink(SEM_PRINT);
-	sem_unlink(SEM_CHECK);
+	sem_unlink(S_FORKS);
+	sem_unlink(S_PRINT);
+	sem_unlink(S_CHECK);
 	if (argc < 5)
 		return (_close((void *)0, (void *)0, "not enough args\n"));
 	config = (t_config *)malloc(sizeof(t_config));
@@ -103,8 +103,8 @@ int	main(int argc, char *argv[])
 	philos = (t_philo *)malloc(config->n_philo * sizeof(t_philo));
 	if (!philos)
 		return (_close(config, (void *)0, "philo error\n"));
-	forks = sem_open(SEM_FORKS, O_CREAT, S_IRWXU, config->n_philo);
-	init_philoers(config, philos, forks);
+	forks = sem_open(S_FORKS, O_CREAT, S_IRWXU, config->n_philo);
+	config_philos(config, philos, forks);
 	if (start(config, philos, config->n_philo))
 		return (_close(config, (void *)0, "start error\n"));
 	return (_close(config, philos, (void *)0));

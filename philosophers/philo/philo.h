@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dshushku < dshushku@student.42roma.it>     +#+  +:+       +#+        */
+/*   By: dshushku <dshushku@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 17:00:25 by dshushku          #+#    #+#             */
-/*   Updated: 2023/11/09 17:06:27 by dshushku         ###   ########.fr       */
+/*   Created: 2023/11/28 13:37:17 by dshushku          #+#    #+#             */
+/*   Updated: 2023/11/28 14:16:07 by dshushku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-# define FORK_TOOK "has taken a fork"
 # define THINKING "is thinking"
 # define SLEEPING "is sleeping"
 # define EATING "is eating"
 # define DIED "died"
+# define FORK_TAKEN "has taken a fork"
 
 typedef struct s_config
 {
@@ -59,14 +59,14 @@ int			args_parser(t_config *config, int argc, char *argv[]);
 int			message(int id, char *act, t_config *config, int d);
 int			ft_atoi(char *str);
 long long	now_ts(void);
-void		ft_sleep(int ms);
-void		init_philoers(t_config *config,	t_philo *philos,
+void		ft_c_sleep(int ms);
+void		config_philos(t_config *config,	t_philo *philos,
 				pthread_mutex_t *forks);
 void		*work(void *arguments);
-void		philo_run(t_philo *philo);
+void		phlio_run(t_philo *philo);
 void		alone_philo_run(t_philo *philo);
 void		*controller(void *args);
-void		wait_start(long long st);
+void		await_start(long long st);
 void		destroy_mutexes(pthread_mutex_t *forks, t_philo *philos,
 				int n_philo);
 

@@ -3,29 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dshushku < dshushku@student.42roma.it>     +#+  +:+       +#+        */
+/*   By: dshushku <dshushku@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 17:00:12 by dshushku          #+#    #+#             */
-/*   Updated: 2023/11/09 17:06:27 by dshushku         ###   ########.fr       */
+/*   Created: 2023/11/28 13:37:31 by dshushku          #+#    #+#             */
+/*   Updated: 2023/11/28 13:58:49 by dshushku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int message(int id, char *act, t_config *config, int d)
+int	message(int id, char *act, t_config *config, int d)
 {
 	if (d)
 		return (0);
-	pt_mutex_lock(&config->print_lock);
+	pthread_mutex_lock(&config->print_lock);
 	printf("%lld %d %s\n", (now_ts() - config->start_time), id, act);
-	pt_mutex_unlock(&config->print_lock);
+	pthread_mutex_unlock(&config->print_lock);
 	return (0);
 }
 
-pthread_t *start(t_config *config, t_philo *philos, int n_philo)
+pthread_t	*start(t_config *config, t_philo *philos, int n_philo)
 {
-	int i;
-	pthread_t *threads;
+	pthread_t	*threads;
+	int			i;
 
 	i = -1;
 	config->start_time = now_ts() + (config->n_philo * 2 * 10);
@@ -38,9 +38,9 @@ pthread_t *start(t_config *config, t_philo *philos, int n_philo)
 	return (threads);
 }
 
-int _close(t_config *c, t_philo *p, pthread_t *t, char *msg)
+int	_close(t_config *c, t_philo *p, pthread_t *t, char *msg)
 {
-	int i;
+	int	i;
 
 	if (t)
 		free(t);
@@ -52,17 +52,17 @@ int _close(t_config *c, t_philo *p, pthread_t *t, char *msg)
 	{
 		i = -1;
 		while (msg[++i])
-			continue;
+			continue ;
 		write(1, msg, i);
 	}
 	return (1);
 }
 
-void start_controller(t_config *config, t_philo *philos, pthread_t *threads)
+void	start_controller(t_config *config, t_philo *philos, pthread_t *threads)
 {
-	int i;
-	pthread_t t;
-	t_send send;
+	pthread_t	t;
+	int			i;
+	t_send		send;
 
 	i = -1;
 	send.config = config;
@@ -71,16 +71,15 @@ void start_controller(t_config *config, t_philo *philos, pthread_t *threads)
 	while (++i < config->n_philo)
 		pthread_join(threads[i], (void *)0);
 	i = -1;
-	// while (++i < config->n_philo)
 	pthread_join(t, (void *)0);
 }
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
-	t_config *config;
-	t_philo *philos;
-	pthread_mutex_t *forks;
-	pthread_t *threads;
+	t_config				*config;
+	t_philo					*philos;
+	pthread_mutex_t			*forks;
+	pthread_t				*threads;
 
 	if (argc < 5)
 		return (_close((void *)0, (void *)0, (void *)0, "not enough args\n"));
@@ -95,7 +94,7 @@ int main(int argc, char *argv[])
 	forks = malloc(config->n_philo * sizeof(pthread_mutex_t));
 	if (!forks)
 		return (_close(config, (void *)0, (void *)0, "forks error\n"));
-	init_philoers(config, philos, forks);
+	config_philos(config, philos, forks);
 	threads = start(config, philos, config->n_philo);
 	start_controller(config, philos, threads);
 	return (_close(config, philos, threads, (void *)0));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dshushku < dshushku@student.42roma.it>     +#+  +:+       +#+        */
+/*   By: dshushku <dshushku@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 17:01:05 by dshushku          #+#    #+#             */
-/*   Updated: 2023/11/09 17:06:27 by dshushku         ###   ########.fr       */
+/*   Created: 2023/11/28 13:38:31 by dshushku          #+#    #+#             */
+/*   Updated: 2023/11/28 14:17:00 by dshushku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ long long	now_ts(void)
 	return (t);
 }
 
-void	wait_start(long long st)
+void	await_start(long long st)
 {
 	while (now_ts() < st)
 		continue ;
@@ -74,12 +74,12 @@ int	args_parser(t_config *config, int argc, char *argv[])
 	config->tme = -1;
 	if (argc == 6)
 		config->tme = ft_atoi(argv[5]);
-	config->print_lock = sem_open(SEM_PRINT, O_CREAT, S_IRWXU, 1);
-	config->check = sem_open(SEM_CHECK, O_CREAT, S_IRWXU, 1);
+	config->print_lock = sem_open(S_PRINT, O_CREAT, S_IRWXU, 1);
+	config->check = sem_open(S_CHECK, O_CREAT, S_IRWXU, 1);
 	return (0);
 }
 
-void	ft_sleep(int ms)
+void	ft_c_sleep(int ms)
 {
 	long long	f;
 
