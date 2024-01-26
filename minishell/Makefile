@@ -16,7 +16,7 @@ MPATH		=	$(addprefix $(MPATH_DIR), $(MPATH_SRCS))
 OBJ_M		=	$(MPATH:.c=.o)
 
 
-FUNC_SRCS	=	ft_strncmp.c ft_strdup.c ft_split.c ft_strjoin.c ft_putnbr.c ft_putstr.c ft_print_pipe.c ft_itoa.c ft_memcpy.c
+FUNC_SRCS	=	ft_strncmp.c ft_strdup.c ft_split.c ft_strjoin.c ft_putnbr.c ft_putstr.c ft_print_pipe.c ft_itoa.c ft_memcpy.c ft_handle.c ft_substr.c
 FUNC_DIR	=	string_utils/
 FUNC 		=	$(addprefix $(FUNC_DIR), $(FUNC_SRCS))\
 					main.c gnl/get_next_line_utils.c gnl/get_next_line.c

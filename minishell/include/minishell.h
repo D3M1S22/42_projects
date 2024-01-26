@@ -6,7 +6,7 @@
 /*   By: dshushku <dshushku@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 01:41:37 by dshushku          #+#    #+#             */
-/*   Updated: 2024/01/25 11:15:19 by dshushku         ###   ########.fr       */
+/*   Updated: 2024/01/26 13:52:43 by dshushku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,20 @@
 # define ERR_PIPE "Pipe"
 # define ERR_CMD "Command not found\n"
 
+// typedef struct s_args
+// {
+// 	void *arg1;
+// 	void *arg2;
+// 	void *arg3;
+// } t_args;
+
 typedef struct s_cmd
 {
 	char	**f_cmd;
 	char	*cmd;
-	int error;
+	int		error;
+	void	(*builtin)(); // CALL TO FUNCTION ((void (*)(int))builtin)
+	char	**redirection;
 }			t_cmd;
 
 typedef struct s_pipex
@@ -71,13 +80,15 @@ int			ft_putstr(char *str, int log);
 void		ft_print_pipe(int pipe, int log_file);
 char		*ft_itoa(int n);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
+void handle_quotes(const char *s, int *i, char quote_found, int *start);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 //-------------
 
 // FREE UTILS
 void		free_cmds(t_cmd **cmds, int ncmd);
 void		free_pipex(t_pipex *pipex);
 void		close_pipes(t_pipex *pipex);
-void		free_parse(char *tmp, char *command);
+void		free_parse(char *tmp, char *command, char* str_mod);
 //-----------
 
 // CHILD
