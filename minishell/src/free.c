@@ -6,11 +6,12 @@
 /*   By: dshushku <dshushku@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 15:13:45 by dshushku          #+#    #+#             */
-/*   Updated: 2024/01/25 11:11:52 by dshushku         ###   ########.fr       */
+/*   Updated: 2024/01/26 01:25:24 by dshushku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include <stdlib.h>
 
 void	free_f_cmd(char **f_cmd)
 {
@@ -61,10 +62,12 @@ void	close_pipes(t_pipex *pipex)
 		close(pipex->tube[i]);
 }
 
-void	free_parse(char *tmp, char *command)
+void	free_parse(char *tmp, char *command, char* str_mod)
 {
 	if (tmp)
 		free(tmp);
 	if (command)
 		free(command);
+	if(str_mod)
+		free(str_mod);
 }

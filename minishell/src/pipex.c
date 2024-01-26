@@ -6,15 +6,13 @@
 /*   By: dshushku <dshushku@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 15:14:43 by dshushku          #+#    #+#             */
-/*   Updated: 2024/01/26 01:09:36 by dshushku         ###   ########.fr       */
+/*   Updated: 2024/01/26 14:46:01 by dshushku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include <malloc/_malloc.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/_types/_null.h>
 #include <unistd.h>
 
 t_cmd	**check_cmds(t_cmd **cmds, int ncmds)
@@ -43,13 +41,40 @@ t_cmd	**malloc_cmds(size_t size)
 	return (tmp);
 }
 
-int ft_handle_access(t_cmd *cmd, char *command, char *tmp){
-	cmd->cmd = ft_strdup(command);
-	cmd->error = 0;
-	free_parse(tmp, command);
-	if (access(cmd->cmd, 0) == 0)
-		return (1);
-	cmd->error = 1;
+char *remove_quotes(char *str_mod)
+{
+	char *s;
+	int i;
+	char quote_found;
+
+	if(str_mod[i] == '\'' || str_mod[i] == '\"'){
+		quote_found = str_mod[0];
+		if(str_mod[ft_strlen(s)] == quote_found)
+			s = ft_substr(s+1, 0, ft_strlen(s)-2);
+		else
+			s = ft_substr(s+1, 0, ft_strlen(s)-1);
+	}
+	return (s);
+}
+
+int ft_handle_access(t_cmd *cmd, char *path){
+	char	*no_quotes;
+	int		i;
+	char	*tmp;
+	char	*command;
+
+	i = -1;
+	while (cmd->f_cmd[++i] != (void *)0) {
+		tmp = ft_strjoin(path, "/");
+		no_quotes = remove_quotes(cmd->f_cmd[i]);
+		command = ft_strjoin(tmp,no_quotes);
+		cmd->cmd = ft_strdup(cmd->f_cmd[i]);
+		cmd->error = 0;
+		free_parse(tmp, command, no_quotes);
+		if (access(cmd->cmd, 0) == 0)
+			return (1);
+		cmd->error = 1;
+	}
 	return 0;
 }
 
@@ -57,8 +82,6 @@ int ft_handle_access(t_cmd *cmd, char *command, char *tmp){
 t_cmd	**ft_parse_cmd(char **argv, int ncmds, char **paths)
 {
 	t_cmd	**cmds;
-	char	*tmp;
-	char	*command;
 	int		i;
 	int		j;
 
@@ -71,9 +94,7 @@ t_cmd	**ft_parse_cmd(char **argv, int ncmds, char **paths)
 		j = -1;
 		while (paths[++j])
 		{
-			tmp = ft_strjoin(paths[j], "/");
-			command = ft_strjoin(tmp,cmds[i]->f_cmd[0]);
-			if(ft_handle_access(cmds[i], command, tmp))
+			if(ft_handle_access(cmds[i], paths[j]))
 				break;
 		}
 	}
@@ -105,15 +126,12 @@ void tokenize_redir(t_cmd *cmd)
 			cmd->redirection[++i] = ft_strdup(cmd->f_cmd[j]);
 		}
 		else if(ft_strncmp(cmd->f_cmd[j], "<", 1) == 0){
-			write(1, "2\n",2);
 			cmd->redirection[++i] = ft_strdup(cmd->f_cmd[j]);
 		}
 		else if (ft_strncmp(cmd->f_cmd[j], ">>", 2) == 0){
-			printf("3\n");
 			cmd->redirection[++i] = ft_strdup(cmd->f_cmd[j]);
 		}
 		else if (ft_strncmp(cmd->f_cmd[j], ">", 1) == 0){
-			printf("4\n");
 			cmd->redirection[++i] = ft_strdup(cmd->f_cmd[j]);
 		}
 		else{
@@ -183,14 +201,16 @@ void	pipex(t_pipex *pipex, const char *argv, char **envp)
 	tokenizer(pipex->cmds, pipex->n_cmds);
 	
 
-
+	write(1, "a\n",2);
 	int j = -1;
 	while (++j<i) {
 		// printf("pipex->cmds[%d] = %s\n, isError %d ", j, pipex->cmds[j]->cmd,pipex->cmds[j]->error);
 		int k = -1;
 		while (pipex->cmds[j]->f_cmd[++k]!= (void *)0){
 			int m = -1;
-			while (pipex->cmds[j]->redirection[++m] != ){
+			printf("%s\n", pipex->cmds[j]->redirection[m]);
+			while (pipex->cmds[j]->redirection[++m] != (void *) 0){
+				printf("aaaa\n");
 				printf("D\n");
 				printf("%s\n", pipex->cmds[j]->redirection[m]);
 			}
@@ -223,5 +243,5 @@ void	pipex(t_pipex *pipex, const char *argv, char **envp)
 	// }
 	// close_pipes(pipex);
 	// handle_waitpid(-1);
-	free_pipex(pipex);
+	// free_pipex(pipex);
 }

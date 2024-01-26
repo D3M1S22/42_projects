@@ -6,7 +6,7 @@
 /*   By: dshushku <dshushku@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 02:59:14 by dshushku          #+#    #+#             */
-/*   Updated: 2024/01/24 01:39:34 by dshushku         ###   ########.fr       */
+/*   Updated: 2024/01/25 22:57:02 by dshushku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,23 +139,6 @@
 // 	j = 0;
 // 	return (prova(start, j, s, c));
 // }
-
-
-void handle_quotes(const char *s, int *i, char quote_found, int *start)
-{
-    if(start && *start < 0)
-        *start = *i;
-    (*i)++;
-    while (s[*i] != '\0')
-    {
-        if (s[*i] != quote_found)
-        {
-            (*i)++;
-        }
-        else
-            break;
-    }
-}
 
 int check_double_pipe(char const *s, char c)
 {
