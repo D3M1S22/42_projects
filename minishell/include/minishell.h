@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dshushku <dshushku@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: federico <federico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 01:41:37 by dshushku          #+#    #+#             */
-/*   Updated: 2024/01/25 11:15:19 by dshushku         ###   ########.fr       */
+/*   Updated: 2024/01/26 13:53:05 by federico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,21 @@ int			msg(char *err);
 void		msg_error(char *err, int to_free);
 void		dup_handle(int tube, int pos);
 void		handle_waitpid(pid_t pid);
+//-----
+
+//BUILTIN
+void	ft_echo(t_cmd *cmd);
+void	ft_cd(char **args, char **envp);
+char	*ft_pwd(void);
+void    ft_env(char **envp);
+char    **ft_export(char **envp, char *new_var);
+char    **ft_unset(char **envp, char *unset_var);
+//-----
+
+// ENV
+char	**ft_cp_env(char **envp, int f, char *str);
+void	ft_print_env(char **envp);
+void	ft_print_env_var(char *env_var, char **envp);
 //-----
 
 #endif

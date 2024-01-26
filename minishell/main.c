@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dshushku <dshushku@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: federico <federico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 15:03:20 by damianoshus       #+#    #+#             */
-/*   Updated: 2024/01/25 16:48:13 by dshushku         ###   ########.fr       */
+/*   Updated: 2024/01/25 17:56:03 by federico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	main(int argc, char const **argv, char **const envp)
 		pipex(pipex_s, res, envp);
 	}
 	free(res);
-		exit(0);
+		// exit(0);
 
 	return (0);
 }
