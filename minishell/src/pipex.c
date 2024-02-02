@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dshushku <dshushku@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: federico <federico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 15:14:43 by dshushku          #+#    #+#             */
-/*   Updated: 2024/01/26 14:46:01 by dshushku         ###   ########.fr       */
+/*   Updated: 2024/02/01 19:38:36 by federico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_cmd	**check_cmds(t_cmd **cmds, int ncmds)
 	int	i;
 
 	i = -1;
+
 	while (++i < ncmds)
 	{
 		if (!cmds[i]->cmd)
@@ -50,9 +51,9 @@ char *remove_quotes(char *str_mod)
 	if(str_mod[i] == '\'' || str_mod[i] == '\"'){
 		quote_found = str_mod[0];
 		if(str_mod[ft_strlen(s)] == quote_found)
-			s = ft_substr(s+1, 0, ft_strlen(s)-2);
+			s = ft_substr(s+1, 0, ft_strlen(str_mod)-2);
 		else
-			s = ft_substr(s+1, 0, ft_strlen(s)-1);
+			s = ft_substr(s+1, 0, ft_strlen(str_mod)-1);
 	}
 	return (s);
 }
@@ -66,11 +67,12 @@ int ft_handle_access(t_cmd *cmd, char *path){
 	i = -1;
 	while (cmd->f_cmd[++i] != (void *)0) {
 		tmp = ft_strjoin(path, "/");
+		printf("we find ourselves inside the main while of handle access = %s\n", cmd->f_cmd[i]);
 		no_quotes = remove_quotes(cmd->f_cmd[i]);
 		command = ft_strjoin(tmp,no_quotes);
 		cmd->cmd = ft_strdup(cmd->f_cmd[i]);
 		cmd->error = 0;
-		free_parse(tmp, command, no_quotes);
+		// free_parse(tmp, command, no_quotes);
 		if (access(cmd->cmd, 0) == 0)
 			return (1);
 		cmd->error = 1;
@@ -92,13 +94,14 @@ t_cmd	**ft_parse_cmd(char **argv, int ncmds, char **paths)
 		cmds[i] = malloc(sizeof(t_cmd));
 		cmds[i]->f_cmd = ft_split(argv[i], ' ');
 		j = -1;
-		while (paths[++j])
-		{
-			if(ft_handle_access(cmds[i], paths[j]))
-				break;
-		}
+		// while (paths[++j])
+		// {
+		// 	if(ft_handle_access(cmds[i], paths[j]))
+		// 		break;
+		// }
 	}
-	return (check_cmds(cmds, ncmds));
+	// return (check_cmds(cmds, ncmds));
+	return(cmds);
 }
 
 char	**ft_parse_paths(char **envp)
@@ -185,63 +188,67 @@ void tokenizer(t_cmd **cmds, int n_cmds)
 
 }
 
-void	pipex(t_pipex *pipex, const char *argv, char **envp)
+void	pipex(const char *argv, char **envp)
 {
 	// int	i;
+	t_cmd **cmds;
 	char **piped_str = ft_split(argv, '|');
 	int i = 0;
 	while (piped_str[i] != (void *)0) {
 		// printf("%s\n", piped_str[i]);
 		i++;
 	}
-	pipex->n_cmds = i;
-	pipex->cmd_paths = ft_parse_paths(envp);
-	pipex->cmds = ft_parse_cmd(piped_str,
-			pipex->n_cmds, pipex->cmd_paths);
-	tokenizer(pipex->cmds, pipex->n_cmds);
+	int n_cmds = i;
+	char **cmd_paths = ft_parse_paths(envp);
+	cmds = ft_parse_cmd(piped_str,
+				n_cmds,cmd_paths);
+	// tokenizer(pipex->cmds, pipex->n_cmds);
 	
 
-	write(1, "a\n",2);
-	int j = -1;
-	while (++j<i) {
-		// printf("pipex->cmds[%d] = %s\n, isError %d ", j, pipex->cmds[j]->cmd,pipex->cmds[j]->error);
-		int k = -1;
-		while (pipex->cmds[j]->f_cmd[++k]!= (void *)0){
-			int m = -1;
-			printf("%s\n", pipex->cmds[j]->redirection[m]);
-			while (pipex->cmds[j]->redirection[++m] != (void *) 0){
-				printf("aaaa\n");
-				printf("D\n");
-				printf("%s\n", pipex->cmds[j]->redirection[m]);
-			}
-		}
+	// write(1, "a\n",2);
+	// int j = -1;
+	// while (++j<i) {
+	// 	// printf("pipex->cmds[%d] = %s\n, isError %d ", j, pipex->cmds[j]->cmd,pipex->cmds[j]->error);
+	// 	int k = -1;
+	// 	while (pipex->cmds[j]->f_cmd[++k]!= (void *)0){
+	// 		int m = -1;
+	// 		printf("%s\n", pipex->cmds[j]->redirection[m]);
+	// 		while (pipex->cmds[j]->redirection[++m] != (void *) 0){
+	// 			printf("aaaa\n");
+	// 			printf("D\n");
+	// 			printf("%s\n", pipex->cmds[j]->redirection[m]);
+	// 		}
+		// }
 			// printf("pipex->cmds[%d]->f_cmd[%d] =  %s\n",j, k, pipex->cmds[j]->f_cmd[k]);
-	}
+	// }
 	
-	// i=0;
-	// while (piped_str[i] != (void *)0) {
-	// 	free(piped_str[i]);
-	// }
-	// free(piped_str);
-	// int e = execve(pipex->cmds[0]->cmd, pipex->cmds[0]->f_cmd, envp);
-	// printf("execve res : %d\n", e);
-	// return ;
-	// pipex->tube = (int *)malloc(sizeof(int) * (pipex->n_pipes));
-	// // i = -1;
-	// while (++i < pipex->n_cmds - 1)
-	// 	if (pipe(pipex->tube + 2 * i) == -1)
-	// 		free_pipex(pipex);
-	// pipex->pids = (int *)malloc(pipex->n_cmds * sizeof(int));
-	// i = -1;
-	// while (++i < pipex->n_cmds)
-	// {
-	// 	pipex->pids[i] = fork();
-	// 	if (pipex->pids[i] == -1)
-	// 		msg_error("pid error", 0);
-	// 	else if (!pipex->pids[i])
-	// 		child_work(pipex, envp, i);
-	// }
-	// close_pipes(pipex);
-	// handle_waitpid(-1);
+	i=-1;
+	while (piped_str[++i] != (void *)0) 
+		free(piped_str[i]);
+	free(piped_str);
+	int e = execve(cmds[0]->cmd, cmds[0]->f_cmd, envp);
+	if (e == -1)
+		return;
+	int n_pipes = 2 *(n_cmds - 1);
+	int *fd_arrays = (int *)malloc(sizeof(int) * (n_pipes));
+	i = -1;
+	while (++i < n_cmds - 1)
+	{
+		if (pipe(fd_arrays + 2 * i) == -1)
+			free_pipex();
+	}
+	int *pids = (int *)malloc(n_cmds * sizeof(int));
+	i = -1;
+	while (++i < n_cmds)
+	{
+		pids[i] = fork();
+		if (pids[i] == -1)
+			msg_error("pid error", 0);
+		else if (!pids[i])
+			child_work(argv, fd_arrays, cmds,n_cmds, n_pipes, envp, i);
+		waitpid(pi);
+	}
+	close_pipes(n_pipes, fd_arrays);
+	handle_waitpid(-1);
 	// free_pipex(pipex);
 }

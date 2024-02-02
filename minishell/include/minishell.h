@@ -6,7 +6,7 @@
 /*   By: federico <federico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 01:41:37 by dshushku          #+#    #+#             */
-/*   Updated: 2024/01/26 14:57:44 by federico         ###   ########.fr       */
+/*   Updated: 2024/01/27 17:09:46 by federico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_pipex
 	int		here_doc;
 }			t_pipex;
 
-void		pipex(t_pipex *pipex, const char *argv, char **envp);
+void		pipex(const char *argv, char **envp);
 
 // SETUP
 int			handle_files(const char *infile, t_pipex *pipex,
@@ -86,13 +86,13 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 // FREE UTILS
 void		free_cmds(t_cmd **cmds, int ncmd);
-void		free_pipex(t_pipex *pipex);
-void		close_pipes(t_pipex *pipex);
+void		free_pipex();
+void		close_pipes(int n_pipes, int *fd_arrays);
 void		free_parse(char *tmp, char *command, char* str_mod);
 //-----------
 
 // CHILD
-void		child_work(t_pipex *pipex, char **envp, int pid_n);
+void	child_work(char *readline, int *fd_arrays, t_cmd **cmds,int n_cmds, int n_pipes, char **envp, int pid_n);
 //-----
 
 // DEBUG
